@@ -88,14 +88,23 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
             .text('Confluence')
         }
 
-        toggle.on('click', function (e) {
-          e.stopPropagation()
+        const toggleMeta = () => {
           const expanded = metaBadges.classed('visible')
           metaBadges.classed('visible', !expanded)
           toggle.text(expanded ? 'Show more' : 'Show less')
           if (window.innerWidth >= uiConfig.tabletViewWidth) {
             stickQuadrantOnScroll()
           }
+        }
+
+        toggle.on('click', function (e) {
+          e.stopPropagation()
+          toggleMeta()
+        })
+
+        blipItemDiv.on('click', function (e) {
+          if (e.target.tagName === 'A') return
+          toggleMeta()
         })
       }
     }

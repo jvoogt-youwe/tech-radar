@@ -124,7 +124,9 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
+        cursor: pointer;
       }
+
 
       // "24. Anthropic API"
       &-title {
