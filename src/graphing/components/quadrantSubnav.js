@@ -18,7 +18,7 @@ function addListItem(quadrantList, name, callback) {
       d3.select('#auto-complete').property('value', '')
       removeScrollListener()
 
-      d3.select('.graph-header').node().scrollIntoView({
+      d3.select('.graph-header').node()?.scrollIntoView({
         behavior: 'smooth',
       })
 

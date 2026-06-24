@@ -23,7 +23,7 @@ function selectRadarQuadrant(order, startAngle, name) {
   const noOfBlips = d3.selectAll('.quadrant-group-' + order + ' .blip-link').size()
   d3.select('#radar').classed('no-blips', noOfBlips === 0)
 
-  d3.select('.graph-header').node().scrollIntoView({
+  d3.select('.graph-header').node()?.scrollIntoView({
     behavior: 'smooth',
   })
 
