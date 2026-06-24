@@ -5,7 +5,6 @@
 
   @if $UIRefresh2022 {
     width: 90%;
-    max-width: 1152px;
     margin: 0 auto;
 
     @include layout-margin(1, $screen-small);
@@ -14,7 +13,6 @@
 
     @include media-query-xlarge {
       min-width: calc($quadrantWidth * 2 + $quadrantsGap);
-      max-width: 1152px;
     }
 
     @include layout-margin(1, $screen-xlarge);

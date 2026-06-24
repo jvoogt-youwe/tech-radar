@@ -3,6 +3,16 @@ const { graphConfig, getScale, uiConfig } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
 const { removeAllSpaces } = require('../../util/stringUtil')
 
+const RING_DESCRIPTIONS = {
+  Adopt: 'We strongly feel that the industry should be adopting these items. We use them when appropriate on our projects.',
+  Trial:
+    'Worth pursuing. It is important to understand how to build up this capability. Teams can try this technology on a project that can handle the risk.',
+  Assess: 'Worth exploring with the goal of understanding how it will affect your projects.',
+  Caution: 'Proceed with caution.',
+}
+
+const INFO_ICON_SVG = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`
+
 function fadeOutAllBlips() {
   d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
 }
@@ -34,61 +44,63 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
       blipItemDiv.attr('data-group-id', blip.groupIdInGraph())
     }
 
-    const blipItemContainer = blipItemDiv
-      .append('button')
-      .classed('blip-list__item-container__name', true)
-      .attr('aria-expanded', 'false')
-      .attr('aria-controls', `blip-description-${blip.id()}`)
-      .attr('aria-hidden', 'true')
-      .attr('tabindex', -1)
-      .on('click search-result-click', function (e) {
-        e.stopPropagation()
+    // Title
+    blipItemDiv.append('h3').classed('blip-list__item-title', true).text(`${blip.blipText()}. ${blip.name()}`)
 
-        const expandFlag = d3.select(e.target.parentElement).classed('expand')
-
-        d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
-        d3.select(e.target.parentElement).classed('expand', !expandFlag)
-
-        d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
-        d3.select('.blip-list__item-container.expand .blip-list__item-container__name').attr('aria-expanded', 'true')
-
-        if (window.innerWidth >= uiConfig.tabletViewWidth) {
-          stickQuadrantOnScroll()
-        }
-      })
-
-    blipItemContainer
-      .append('span')
-      .classed('blip-list__item-container__name-value', true)
-      .text(`${blip.blipText()}. ${blip.name()}`)
-    blipItemContainer.append('span').classed('blip-list__item-container__name-arrow', true)
-
-    const descriptionDiv = blipItemDiv
-      .append('div')
-      .classed('blip-list__item-container__description', true)
-      .attr('id', `blip-description-${blip.id()}`)
-
-    descriptionDiv.html(blip.description())
-
-    if (blip.owner()) {
-      descriptionDiv.append('p').classed('blip-meta', true).html(`<strong>Owner:</strong> ${blip.owner()}`)
-    }
-
-    if (blip.reviewDate()) {
-      descriptionDiv.append('p').classed('blip-meta', true).html(`<strong>Review date:</strong> ${blip.reviewDate()}`)
-    }
-
+    // Determine what meta fields exist
     const confluenceUrl = blip.confluenceUrl()
-    if (confluenceUrl && (confluenceUrl.startsWith('https://') || confluenceUrl.startsWith('http://'))) {
-      descriptionDiv
-        .append('a')
-        .classed('blip-confluence-btn', true)
-        .attr('href', confluenceUrl)
-        .attr('target', '_blank')
-        .attr('rel', 'noopener noreferrer')
-        .text('View in Confluence')
+    const hasValidConfluence =
+      confluenceUrl && (confluenceUrl.startsWith('https://') || confluenceUrl.startsWith('http://'))
+    const hasMeta = blip.owner() || blip.reviewDate() || hasValidConfluence
+
+    // Description with optional inline toggle
+    const description = blip.description() || ''
+    if (description || hasMeta) {
+      const descDiv = blipItemDiv.append('div').classed('blip-description-text', true)
+
+      if (description) {
+        descDiv.append('span').classed('blip-description-body', true).html(description)
+      }
+
+      if (hasMeta) {
+        // Inline "Show more" / "Show less" toggle
+        if (description) {
+          descDiv.node().appendChild(document.createTextNode(' '))
+        }
+        const toggle = descDiv.append('button').classed('blip-show-toggle', true).text('Show more')
+
+        // Meta badges (hidden until "Show more")
+        const metaBadges = blipItemDiv.append('div').classed('blip-meta-badges', true)
+
+        if (blip.owner()) {
+          metaBadges.append('span').classed('blip-meta-badge', true).text(blip.owner())
+        }
+        if (blip.reviewDate()) {
+          metaBadges.append('span').classed('blip-meta-badge', true).text(blip.reviewDate())
+        }
+        if (hasValidConfluence) {
+          metaBadges
+            .append('a')
+            .classed('blip-meta-badge blip-meta-badge--link', true)
+            .attr('href', confluenceUrl)
+            .attr('target', '_blank')
+            .attr('rel', 'noopener noreferrer')
+            .text('Confluence')
+        }
+
+        toggle.on('click', function (e) {
+          e.stopPropagation()
+          const expanded = metaBadges.classed('visible')
+          metaBadges.classed('visible', !expanded)
+          toggle.text(expanded ? 'Show more' : 'Show less')
+          if (window.innerWidth >= uiConfig.tabletViewWidth) {
+            stickQuadrantOnScroll()
+          }
+        })
+      }
     }
   }
+
   const blipGraphItem = d3.select(`g a#blip-link-${removeAllSpaces(blip.id())}`)
   const mouseOver = function (e) {
     const targetElement = e.target.classList.contains('blip-link') ? e.target : e.target.parentElement
@@ -107,7 +119,6 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
       tip.show(toolTipText, selectedBlipOnGraph.node())
 
       const selectedBlipCoords = selectedBlipOnGraph.node().getBoundingClientRect()
-
       const tipElement = d3.select('div.d3-tip')
       const tipElementCoords = tipElement.node().getBoundingClientRect()
 
@@ -138,25 +149,19 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
     const blipId = d3.select(targetElement).attr('data-blip-id')
     highlightBlipInGraph(blipId)
 
-    d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
-
-    let selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
-    selectedBlipContainer.classed('expand', true)
-
     setTimeout(
       () => {
         if (window.innerWidth >= uiConfig.tabletViewWidth) {
           stickQuadrantOnScroll()
         }
 
+        let selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
         const isGroupBlip = isNaN(parseInt(blipId))
         if (isGroupBlip) {
           selectedBlipContainer = d3.select(`.blip-list__item-container[data-group-id="${blipId}"`)
         }
-        const elementToFocus = selectedBlipContainer.select('button.blip-list__item-container__name')
-        elementToFocus.node()?.scrollIntoView({
-          behavior: 'smooth',
-        })
+        const elementToFocus = selectedBlipContainer.select('h3.blip-list__item-title')
+        elementToFocus.node()?.scrollIntoView({ behavior: 'smooth' })
       },
       isQuadrantView ? 0 : 1500,
     )
@@ -211,11 +216,20 @@ function renderQuadrantTables(quadrants, rings) {
       ),
     )
     ringNames.forEach(function (ringName) {
-      quadrantContainer
-        .append('h2')
-        .classed('quadrant-table__ring-name', true)
-        .attr('data-ring-name', ringName)
-        .text(ringName)
+      const ringHeader = quadrantContainer.append('div').classed('quadrant-table__ring-header', true)
+      ringHeader.append('h2').classed('quadrant-table__ring-name', true).attr('data-ring-name', ringName).text(ringName)
+
+      const tooltipWrapper = ringHeader.append('span').classed('quadrant-table__ring-tooltip', true)
+      tooltipWrapper
+        .append('button')
+        .classed('quadrant-table__ring-tooltip-btn', true)
+        .attr('aria-label', `What does ${ringName} mean?`)
+        .html(INFO_ICON_SVG)
+      tooltipWrapper
+        .append('div')
+        .classed('quadrant-table__ring-tooltip-text', true)
+        .text(RING_DESCRIPTIONS[ringName] || '')
+
       quadrantContainer
         .append('ul')
         .classed('blip-list', true)

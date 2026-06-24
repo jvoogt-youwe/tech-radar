@@ -10,13 +10,6 @@
     @include layout-margin(calc(5 / 12), $screen-xxlarge);
     @include layout-margin(calc(5 / 12), $screen-xxxlarge);
 
-    &__ring-name {
-      text-transform: none;
-      margin: 0;
-      scroll-margin-top: $subnavHeight;
-      font-family: $baseFontFamily;
-    }
-
     @include media-query-xlarge {
       max-width: 40%;
       margin-top: 0 !important;
@@ -31,120 +24,193 @@
         justify-content: unset;
       }
     }
+
+    // Ring section header — e.g. "Adopt ℹ"
+    &__ring-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background-color: $mist;
+    }
+
+    &__ring-name {
+      font-size: 1.125rem; // 18px
+      font-weight: 700;
+      color: #1a1a1a;
+      text-transform: none;
+      margin: 0;
+      scroll-margin-top: $subnavHeight;
+      font-family: $baseFontFamily;
+      line-height: 1.2;
+    }
+
+    // Info icon tooltip
+    &__ring-tooltip {
+      position: relative;
+      display: inline-flex;
+
+      &-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $mist-s30;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+
+        &:hover ~ .quadrant-table__ring-tooltip-text,
+        &:focus ~ .quadrant-table__ring-tooltip-text {
+          display: block;
+        }
+      }
+
+      &-text {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        background: $wave;
+        color: $white;
+        padding: 10px 14px;
+        width: 260px;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        z-index: 100;
+        border-radius: 4px;
+        font-weight: 400;
+        font-family: $baseFontFamily;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 100%;
+          left: 14px;
+          border: 6px solid transparent;
+          border-bottom-color: $wave;
+        }
+      }
+    }
   }
 
+  // Blip list (one per ring section)
   .blip-list {
     width: 100%;
-    margin-bottom: 64px;
+    margin-bottom: 40px; // gap between ring sections
+    padding: 0;
+    list-style: none;
 
     &__item {
       width: 100%;
+      border-bottom: 1px solid $mist-s10;
 
       &:hover,
       &.highlight {
-        background-color: $white;
+        background-color: $mist-light;
       }
 
+      // Item content wrapper
       &-container {
-        &.expand {
-          background-color: $white;
-        }
+        padding: 24px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
 
-        &.expand &__name {
-          &-arrow {
-            rotate: -135deg;
-            margin-top: 10px;
-          }
-        }
+      // "24. Anthropic API"
+      &-title {
+        font-size: 1rem; // 16px
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0;
+        font-family: $baseFontFamily;
+        scroll-margin-top: $subnavHeight;
+        line-height: 1.2;
+        text-transform: none !important;
+      }
+    }
+  }
 
-        &.expand &__description {
-          display: block;
-        }
+  // Description block (contains body text + inline toggle)
+  .blip-description-text {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #1a1a1a;
+    font-family: $baseFontFamily;
+    margin: 0;
 
-        &__name {
-          padding: 20px;
-          width: 100%;
-          border: none;
-          background-color: transparent;
-          border-bottom: 1px solid $mist-s20;
-          text-align: unset;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          cursor: pointer;
-          scroll-margin-top: $subnavHeight;
+    .blip-description-body > * {
+      font-family: $baseFontFamily !important;
+      font-size: inherit !important;
+      line-height: inherit !important;
+      margin: 0 !important;
+    }
+  }
 
-          & > * {
-            pointer-events: none;
-          }
+  // Inline "Show more" / "Show less" button
+  .blip-show-toggle {
+    display: inline;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: $baseFontFamily;
+    color: #1a1a1a;
+    text-decoration: underline;
+    cursor: pointer;
+    line-height: 1.4;
 
-          &-value {
-            pointer-events: none;
-            display: inline-block;
-            width: 90%;
-            font-size: 1rem;
-            font-family: $baseFontFamily;
+    &:hover {
+      opacity: 0.75;
+    }
+  }
 
-            @include media-query-large {
-              font-size: 1.125rem;
-            }
-          }
+  // Meta pill badges row — owner, date, Confluence
+  .blip-meta-badges {
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 12px;
 
-          &-arrow {
-            width: 8px;
-            height: 8px;
-            display: inline-flex;
-            rotate: 45deg;
-            border: 1px solid $flamingo;
-            border-width: 0 2px 2px 0;
-            -webkit-transition: all 0.2s ease;
-            transition: all 0.2s ease;
-          }
-        }
+    &.visible {
+      display: flex;
+    }
+  }
 
-        &__description {
-          display: none;
-          padding: 20px;
-          font-size: 1rem;
-          font-family: $baseFontFamily;
-          line-height: 36px;
+  .blip-meta-badge {
+    background-color: #e8ecf3;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #1a1a1a;
+    font-family: $baseFontFamily;
+    font-weight: 400;
+    text-decoration: none;
+    white-space: nowrap;
 
-          @include media-query-large {
-            font-size: 1.125rem;
-          }
+    &--link {
+      text-decoration: underline;
+      text-decoration-color: #1a1a1a;
+      border-bottom: none;
+      color: #1a1a1a;
+      cursor: pointer;
 
-          & > * {
-            font-family: inherit !important;
-            font-size: inherit !important;
-            line-height: inherit !important;
-            margin: 0 !important;
-          }
-
-          .blip-meta {
-            margin-top: 12px !important;
-            line-height: 1.5 !important;
-          }
-
-          .blip-confluence-btn {
-            display: inline-block;
-            margin-top: 24px !important;
-            padding: 16px 24px;
-            background-color: $flamingo;
-            color: white;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: $baseFontFamily;
-            border: none;
-            border-radius: 6px;
-            line-height: 1 !important;
-
-            &:hover {
-              background-color: $flamingo-s40;
-              opacity: 1;
-            }
-          }
-        }
+      &:hover {
+        color: $flamingo;
+        text-decoration-color: $flamingo;
+        border-bottom: none;
+        opacity: 1;
       }
     }
   }
