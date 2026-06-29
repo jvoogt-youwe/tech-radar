@@ -3,7 +3,7 @@
 
 @if $UIRefresh2022 {
   .quadrant-subnav {
-    font-size: 1.125rem;
+    font-size: 0.875rem;
     width: 100%;
     background-color: $white;
     display: flex;
@@ -15,7 +15,7 @@
       flex-direction: row;
       justify-content: center;
       height: $subnavHeight;
-      font-size: 1.25rem;
+      font-size: 0.9375rem;
     }
 
     &.sticky {
@@ -84,7 +84,7 @@
         padding: 0;
         height: 100%;
         box-sizing: border-box;
-        font-size: 16px;
+        font-size: 14px;
 
         @include media-query-xlarge {
           &.active-item {
@@ -125,7 +125,7 @@
 
           @include media-query-xlarge {
             width: 100%;
-            padding: 15px 0;
+            padding: 10px 0;
             margin: 0;
             text-align: center;
             white-space: nowrap;

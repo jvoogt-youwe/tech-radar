@@ -19,23 +19,26 @@
 }
 
 footer.youwe-footer {
-  margin-top: 24px;
-  padding: 24px;
+  margin-top: 0;
+  height: 72px;
+  box-sizing: border-box;
+  padding: 0 24px;
   border-top: 1px solid rgba(#163c4d, 0.1);
+  display: flex;
+  align-items: center;
 
   > div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    max-width: 1152px;
+    max-width: 1040px;
     width: 100%;
     margin: 0 auto;
   }
 
   p {
     margin: 0;
-    font-size: 12px;
+    font-size: 14px !important;
     color: #667085;
     letter-spacing: 0.04em;
   }
@@ -51,7 +54,7 @@ footer.youwe-footer {
     }
 
     img {
-      height: 40px;
+      height: 36px;
       width: auto;
       display: block;
     }
