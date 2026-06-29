@@ -66,16 +66,14 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
     )
   })
 
-  const subnavOffset =
-    (window.innerWidth < 1024 ? uiConfig.tabletBannerHeight : uiConfig.bannerHeight) + uiConfig.headerHeight
+  const bannerEl = document.querySelector('.hero-banner')
+  const subnavOffset = bannerEl ? bannerEl.offsetHeight : uiConfig.bannerHeight
 
   window.addEventListener('scroll', function () {
     if (subnavOffset <= window.scrollY) {
       d3.select('.quadrant-subnav').classed('sticky', true)
-      d3.select('.search-container').classed('sticky-offset', true)
     } else {
       d3.select('.quadrant-subnav').classed('sticky', false)
-      d3.select('.search-container').classed('sticky-offset', false)
     }
   })
 }

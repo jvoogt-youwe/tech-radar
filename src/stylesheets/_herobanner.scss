@@ -3,7 +3,6 @@
 
 @if $UIRefresh2022 {
   .hero-banner {
-    height: 640px;
     background-color: #0c1a24;
     background-image:
       linear-gradient(to right, rgba(12, 26, 36, 0.92) 0%, rgba(12, 26, 36, 0.85) 30%, rgba(12, 26, 36, 0.4) 60%, rgba(12, 26, 36, 0) 80%),
@@ -16,54 +15,92 @@
     align-items: center;
     margin: 0 !important;
 
-    @include media-query-xlarge {
-      height: 440px;
-    }
-
     &__wrapper {
       width: 100%;
-      max-width: 1152px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 0 5%;
+      padding: 2.5rem 5%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
 
       @include media-query-large {
-        padding: 0 calc((100% - 1440px) / 2 + 5%);
-        padding: 0 max(5%, calc((100% - 1440px) / 2));
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 1.5rem;
+        padding: 2.5rem max(5%, calc((100% - 1040px) / 2));
+      }
+    }
+
+    &__content {
+      @include media-query-large {
+        flex: 1 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+      }
+    }
+
+    &__search {
+      @include media-query-large {
+        flex: 1 0 0;
+      }
+
+      .search-container {
+        margin: 0 !important;
+        width: 100%;
+        height: auto;
+
+        input,
+        &__input {
+          width: 100%;
+          height: auto !important;
+          padding: 12px 20px !important;
+          margin-bottom: 0 !important;
+          background-color: rgba(255, 255, 255, 0.16) !important;
+          backdrop-filter: blur(4px);
+          border: 1px solid rgba(255, 255, 255, 0.4) !important;
+          color: $white !important;
+          background-image: none !important;
+          font-size: 1rem;
+          border-radius: 4px;
+          letter-spacing: -0.02em;
+
+          &::placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+          }
+        }
       }
     }
 
     &__volume {
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.85);
-      margin: 0 0 1.25rem 0;
+      margin: 0;
       letter-spacing: 0;
       text-transform: none;
     }
 
     &__title-text {
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: #ffffff;
-      margin: 0 0 1.25rem 0;
+      margin: 0;
       text-transform: none;
-      letter-spacing: -0.5px;
-      line-height: 1.1;
+      letter-spacing: -0.03em;
+      line-height: normal;
       cursor: default;
       width: auto;
       text-align: left;
-
-      @include media-query-medium {
-        font-size: 3.5rem;
-        letter-spacing: -1px;
-      }
     }
 
     &__subtitle-text {
-      font-size: 1.125rem;
+      font-size: 0.9rem;
       font-weight: 600;
       color: rgba(255, 255, 255, 0.9);
-      margin: 0 0 2.5rem 0;
+      margin: 0;
       letter-spacing: 0;
       text-transform: none;
       width: auto;
@@ -78,15 +115,18 @@
       display: inline-block;
       background-color: #e40046;
       color: #ffffff;
-      padding: 1rem 2.25rem;
-      font-size: 1.1rem;
-      font-weight: 600;
+      padding: 11px 16px;
+      font-size: 1rem;
+      font-weight: 700;
       font-family: $baseFontFamily;
       text-decoration: none;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      line-height: 1;
+      line-height: normal;
+      letter-spacing: -0.02em;
+      height: 40px;
+      box-sizing: border-box;
 
       &:hover:not(:disabled) {
         background-color: #b80038;
