@@ -20,11 +20,14 @@ function showToast(message, type) {
   }, 7000)
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  const btn = document.getElementById('keep-me-posted-btn')
+// The button is rendered dynamically once the radar data has loaded, so it does
+// not exist at DOMContentLoaded. Use event delegation so the handler works no
+// matter when the button appears.
+document.addEventListener('click', async function (event) {
+  const btn = event.target.closest('#keep-me-posted-btn')
   if (!btn) return
 
-  btn.addEventListener('click', async function () {
+  {
     if (!CONFLUENCE_BASE_URL || !CONFLUENCE_PAGE_ID) {
       showToast('Confluence is not configured yet.', 'error')
       return
@@ -58,5 +61,5 @@ document.addEventListener('DOMContentLoaded', function () {
         'info',
       )
     }
-  })
+  }
 })

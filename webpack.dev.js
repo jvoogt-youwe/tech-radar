@@ -30,6 +30,20 @@ module.exports = merge(common, {
   performance: {
     hints: false,
   },
+  devServer: {
+    // Serve the Confluence proxy function locally so `npm run dev` works standalone.
+    // webpack-dev-server uses Express, with which api/radar.js is compatible
+    // (res.status().json()); .env is already loaded via webpack.common.js.
+    setupMiddlewares: (middlewares) => {
+      const radarHandler = require('./api/radar.js')
+      middlewares.unshift({
+        name: 'api-radar',
+        path: '/api/radar',
+        middleware: (req, res) => radarHandler(req, res),
+      })
+      return middlewares
+    },
+  },
   module: {
     rules: [
       {
