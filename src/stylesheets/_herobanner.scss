@@ -4,12 +4,12 @@
 @if $UIRefresh2022 {
   .hero-banner {
     background-color: #ffffff;
-    color: #1a1a1a;
+    color: #1c2433;
     display: flex;
     align-items: center;
     height: 72px;
     margin: 0 !important;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #dadde1;
 
     &__wrapper {
       width: 100%;
@@ -55,17 +55,17 @@
           box-sizing: border-box;
           padding: 0 14px !important;
           margin-bottom: 0 !important;
-          background-color: #f5f5f5 !important;
+          background-color: #f2f4f7 !important;
           backdrop-filter: none;
-          border: 1px solid #d0d0d0 !important;
-          color: #1a1a1a !important;
+          border: 1px solid #c2c6cc !important;
+          color: #1c2433 !important;
           background-image: none !important;
           font-size: 0.875rem;
           border-radius: 4px;
           letter-spacing: -0.02em;
 
           &::placeholder {
-            color: #999999 !important;
+            color: #9599a3 !important;
           }
         }
       }
@@ -74,7 +74,7 @@
     &__volume {
       font-size: 0.8rem;
       font-weight: 700;
-      color: #666666;
+      color: #696f7b;
       margin: 0;
       letter-spacing: 0;
       text-transform: none;
@@ -83,7 +83,7 @@
     &__title-text {
       font-size: 1.125rem;
       font-weight: 800;
-      color: #1a1a1a;
+      color: #1c2433;
       margin: 0;
       text-transform: none;
       letter-spacing: -0.03em;
@@ -96,7 +96,7 @@
     &__subtitle-text {
       font-size: 0.9rem;
       font-weight: 600;
-      color: #444444;
+      color: #2e3544;
       margin: 0;
       letter-spacing: 0;
       text-transform: none;

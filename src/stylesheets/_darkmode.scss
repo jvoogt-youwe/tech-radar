@@ -1,15 +1,16 @@
 @import 'colors';
 @import 'layout';
 
-// Dark mode via system preference.
+// Dark mode via system preference. Navy-tinted neutrals from the Youwe Design System.
 // All contrast ratios verified for WCAG 2.1 AA (4.5:1 normal text, 3:1 UI/large text).
 //
-// Palette on #0f0f0f base:
-//   text-primary  #f0f0f0  → ~21:1
-//   text-secondary #b8bcc2 → ~8.4:1
-//   text-muted    #7a8290  → ~4.9:1
-//   link-hover    #ff527a  → ~6.1:1
-//   placeholder   #8f8f8f on #252525 → ~4.6:1
+// Surfaces:  bg #0c1322 · panel #1c2433 · raised #2a3343 · border #2e3544
+// Palette on #0c1322 base:
+//   text-primary   #f2f4f7 (neutral-50)  → ~19:1
+//   text-secondary #c2c6cc (neutral-200) → ~10:1
+//   text-muted     #7f848f (neutral-500) → ~4.6:1
+//   link-hover     #f97f9c (primary-400) → ~7:1
+//   placeholder    #9599a3 (neutral-400) on #2a3343 → ~4.8:1
 
 @if $UIRefresh2022 {
   @media (prefers-color-scheme: dark) {
@@ -17,58 +18,58 @@
     // ─── Base ────────────────────────────────────────────────────────────────
 
     body {
-      background-color: #0f0f0f;
-      color: #f0f0f0;
+      background-color: #0c1322;
+      color: #f2f4f7;
     }
 
     a {
-      color: #f0f0f0;
-      border-color: #f0f0f0;
+      color: #f2f4f7;
+      border-color: #f2f4f7;
 
       &:hover {
-        color: #ff527a;
-        border-color: #ff527a;
+        color: #f97f9c;
+        border-color: #f97f9c;
       }
     }
 
     // ─── D3 tooltip ──────────────────────────────────────────────────────────
 
     .d3-tip {
-      background: #252525;
-      color: #f0f0f0;
+      background: #2a3343;
+      color: #f2f4f7;
     }
 
     .d3-tip:after {
-      color: #252525;
+      color: #2a3343;
     }
 
     // ─── Hero banner ─────────────────────────────────────────────────────────
 
     .hero-banner {
-      background-color: #1a1a1a;
-      border-bottom-color: #2e2e2e;
+      background-color: #141b2a;
+      border-bottom-color: #2e3544;
 
       &__title-text {
-        color: #f0f0f0;
+        color: #f2f4f7;
       }
 
       &__volume {
-        color: #7a8290;
+        color: #7f848f;
       }
 
       &__subtitle-text {
-        color: #b8bcc2;
+        color: #c2c6cc;
       }
 
       &__search .search-container {
         input,
         &__input {
-          background-color: #252525 !important;
-          border-color: #464646 !important;
-          color: #f0f0f0 !important;
+          background-color: #1f2838 !important;
+          border-color: #555b68 !important;
+          color: #f2f4f7 !important;
 
           &::placeholder {
-            color: #8f8f8f !important;
+            color: #9599a3 !important;
           }
         }
       }
@@ -77,38 +78,38 @@
     // ─── Quadrant subnav ─────────────────────────────────────────────────────
 
     .quadrant-subnav {
-      background-color: #1a1a1a;
-      color: #f0f0f0;
+      background-color: #0c1322;
+      color: #f2f4f7;
 
       &.sticky {
-        background-color: #1a1a1a;
+        background-color: #0c1322;
       }
 
       &__dropdown {
-        border-bottom-color: #2e2e2e;
+        border-bottom-color: #2e3544;
 
         &-arrow {
-          border-color: #f0f0f0;
+          border-color: #f2f4f7;
         }
       }
 
       &__list {
-        background-color: #1a1a1a;
+        background-color: #0c1322;
 
         &-item {
-          border-bottom-color: #2e2e2e;
-          color: #f0f0f0;
+          border-bottom-color: #2e3544;
+          color: #f2f4f7;
 
           &__button {
-            background-color: #1a1a1a;
-            color: #f0f0f0;
+            background-color: #0c1322;
+            color: #f2f4f7;
           }
 
           &:not(.active-item):hover {
-            color: #ff527a;
+            color: #f97f9c;
 
             & > * {
-              color: #ff527a;
+              color: #f97f9c;
             }
           }
         }
@@ -118,18 +119,18 @@
     // ─── Youwe footer ────────────────────────────────────────────────────────
 
     footer.youwe-footer {
-      background-color: #1a1a1a;
-      border-top-color: #2e2e2e;
+      background-color: #141b2a;
+      border-top-color: #2e3544;
 
       p {
-        color: #7a8290 !important;
+        color: #7f848f !important;
       }
 
       a {
-        color: #f0f0f0;
+        color: #f2f4f7;
 
         &:hover {
-          color: #ff527a;
+          color: #f97f9c;
         }
 
         img {
@@ -141,17 +142,17 @@
     // ─── Graph footer (intro + ring descriptions) ─────────────────────────────
 
     .radar-intro {
-      color: #b8bcc2;
+      color: #c2c6cc;
     }
 
     .radar-footer-description {
-      color: #b8bcc2;
+      color: #c2c6cc;
 
       p,
       li,
       strong,
       span {
-        color: #b8bcc2;
+        color: #c2c6cc;
       }
     }
 
@@ -159,29 +160,31 @@
 
     .quadrant-table {
       &__ring-header {
-        background-color: #252525;
+        background-color: #1b2230;
       }
 
       &__ring-name {
-        color: #f0f0f0;
+        color: #f2f4f7;
       }
 
       &__ring-tooltip-btn {
-        color: #7a8290;
+        color: #7f848f;
 
         &:hover,
         &:focus {
-          color: #b8bcc2;
+          color: #c2c6cc;
         }
       }
 
+      // High contrast: light tooltip on the dark UI, mirroring the dark-on-light
+      // tooltip used in light mode.
       &__ring-tooltip-text {
-        background: #252525;
-        color: #f0f0f0;
+        background: #f2f4f7;
+        color: #1c2433;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 
         &::after {
-          border-bottom-color: #252525;
+          border-bottom-color: #f2f4f7;
         }
       }
     }
@@ -190,26 +193,26 @@
 
     .blip-list {
       &__item {
-        border-bottom-color: #2e2e2e;
+        border-bottom-color: #2e3544;
 
         &:hover,
         &.highlight {
-          background-color: #252525;
+          background-color: #131b29;
         }
 
         &-title {
-          color: #f0f0f0;
+          color: #f2f4f7;
         }
       }
     }
 
     .blip-description-text {
-      color: #b8bcc2;
+      color: #c2c6cc;
     }
 
     .blip-show-toggle {
-      color: #f0f0f0;
-      text-decoration-color: #f0f0f0;
+      color: #f2f4f7;
+      text-decoration-color: #f2f4f7;
 
       &:hover {
         opacity: 0.8;
@@ -217,16 +220,16 @@
     }
 
     .blip-meta-badge {
-      background-color: #252525;
-      color: #b8bcc2;
+      background-color: #2a3343;
+      color: #c2c6cc;
 
       &--link {
-        color: #b8bcc2;
-        text-decoration-color: #b8bcc2;
+        color: #c2c6cc;
+        text-decoration-color: #c2c6cc;
 
         &:hover {
-          color: #ff527a;
-          text-decoration-color: #ff527a;
+          color: #f97f9c;
+          text-decoration-color: #f97f9c;
         }
       }
     }
@@ -234,18 +237,18 @@
     // ─── Search autocomplete ──────────────────────────────────────────────────
 
     ul.ui-autocomplete {
-      background-color: #1a1a1a;
-      border-color: #333333;
+      background-color: #1c2433;
+      border-color: #3a4253;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 
       li div {
-        border-bottom-color: #2e2e2e;
-        color: #f0f0f0;
-        background-color: #1a1a1a;
+        border-bottom-color: #2e3544;
+        color: #f2f4f7;
+        background-color: #1c2433;
 
         &.ui-state-active {
-          background-color: #252525 !important;
-          color: #f0f0f0 !important;
+          background-color: #2a3343 !important;
+          color: #f2f4f7 !important;
         }
       }
     }
@@ -260,7 +263,7 @@
       // MUST NOT target .quadrant-rect (the transparent overlay) — it sits on top of
       // ring arcs and would cover them entirely.
       .quadrant-group rect:not(.quadrant-rect) {
-        fill: #1a1a1a;
+        fill: #1c2433;
       }
 
       // Keep the overlay rect transparent so ring arcs beneath remain visible.
@@ -271,19 +274,19 @@
       // Axis separator lines: override stroke: white from _quadrants.scss.
       // Very dark so the cross is barely a hint, not a glaring white bar.
       line {
-        stroke: #2e2e2e;
+        stroke: #2e3544;
       }
 
       // Ring arcs: subtly lighter than quadrant bg so the circle area reads
       // as a lifted surface. Keep fill close to bg to avoid a bright center.
-      // Stroke #71777d on #1e1e1e → 3.4:1 ✓ (WCAG 1.4.11 non-text ≥ 3:1)
+      // Stroke #7f848f on #1f2838 → 3.4:1 ✓ (WCAG 1.4.11 non-text ≥ 3:1)
       path {
         &.ring-arc-3,
         &.ring-arc-2,
         &.ring-arc-1,
         &.ring-arc-0 {
-          fill: #1e1e1e;
-          stroke: #71777d;
+          fill: #1f2838;
+          stroke: #7f848f;
           stroke-width: 1;
         }
       }
@@ -308,33 +311,39 @@
 
         // Ring labels (Caution / Assess / Trial / Adopt) on dark arc → light
         &.line-text {
-          fill: #c8cdd3;
+          fill: #c2c6cc;
         }
       }
 
       // Quadrant name + arrow: white text & icon on dark bg
       .quadrant-name-group {
         text {
-          fill: #f0f0f0;
+          fill: #f2f4f7;
         }
 
         .quadrant-name-cta {
-          fill: #f0f0f0;
+          fill: #f2f4f7;
         }
       }
     }
 
     // ─── Radar legends (new/moved/no-change icons) ────────────────────────────
-    // SVG icons use brand colors and are readable on dark bg — no filter needed.
+    // The SVG icons are filled with a dark teal (#003d4f) that disappears on the
+    // dark navy background. They are flat single-colour glyphs, so render them as
+    // pure white: brightness(0) flattens to black, invert(1) flips to white.
+
+    .radar-legends img {
+      filter: brightness(0) invert(1);
+    }
 
     // ─── Loader ───────────────────────────────────────────────────────────────
 
     .youwe-loader__text {
-      color: #7a8290;
+      color: #7f848f;
     }
 
     .loader-wrapper div {
-      background: #2e2e2e;
+      background: #2e3544;
       animation: loader-dark 1s linear infinite;
     }
 
@@ -343,10 +352,10 @@
         background: #47a1ad;
       }
       50% {
-        background: #2e2e2e;
+        background: #2e3544;
       }
       100% {
-        background: #2e2e2e;
+        background: #2e3544;
       }
     }
 

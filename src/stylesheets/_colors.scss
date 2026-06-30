@@ -1,49 +1,80 @@
+// ─── Youwe Design System scales (2025) ──────────────────────────────────────
+// Source: Youwe Design System – Colors (Figma).
+
+// Neutral ramp (navy-tinted black/white). 50 = lightest, 1000 = darkest.
+$neutral-50: #f2f4f7;
+$neutral-100: #dadde1;
+$neutral-200: #c2c6cc;
+$neutral-300: #abafb7;
+$neutral-400: #9599a3;
+$neutral-500: #7f848f;
+$neutral-600: #696f7b;
+$neutral-700: #555b68;
+$neutral-800: #414856;
+$neutral-900: #2e3544;
+$neutral-950: #1c2433;
+$neutral-1000: #0c1322;
+
+// Primary ramp (Youwe flamingo red / pink). 500 = brand primary.
+$primary-50: #f8e8ef;
+$primary-100: #facfdf;
+$primary-200: #fbb5cc;
+$primary-300: #fb9bb5;
+$primary-400: #f97f9c;
+$primary-450: #f56281;
+$primary-475: #ef3e62;
+$primary-500: #e40046;
+$primary-600: #bb043d;
+$primary-700: #910833;
+$primary-800: #690b28;
+$primary-900: #430a1b;
+
+// ─── Accent colors ──────────────────────────────────────────────────────────
 $green: #86b782;
 $blue: #1ebccd;
 $orange: #f38a3e;
 $violet: #b32059;
 $pink: #ee0b77;
 
-$grey-darkest: #bababa;
-$grey-dark: #cacaca;
-$grey: #dadada;
-$grey-light: #eee;
-$grey-lightest: #fafafa;
-$grey-even-darker: #d7d7d7;
+// ─── Neutral aliases (now mapped onto the Youwe neutral ramp) ────────────────
+$white: #ffffff;
+$black: #000000;
 
-$white: #fff;
-$black: #000;
-$grey-text: rgb(51, 51, 51);
+$grey-lightest: $neutral-50; // #f2f4f7
+$grey-light: $neutral-100; // #dadde1
+$grey-even-darker: $neutral-200; // #c2c6cc
+$grey: $neutral-200; // #c2c6cc
+$grey-dark: $neutral-300; // #abafb7
+$grey-darkest: $neutral-400; // #9599a3
+$grey-text: $neutral-950; // #1c2433
 
 $grey-alpha-03: rgba(255, 255, 255, 0.3);
 
-// Brand colors for use across theme.
-$black: #000000; //onyx
-$white: #ffffff; //white
+// ─── Brand colors for use across theme ──────────────────────────────────────
 $wave: #163c4d; //wave
 $wave-light: #6b8591; //wave-light
-$flamingo: #e40046; //flamingo → Youwe primary-500
-$mist: #edf1f3; //mist (ededed)
+$flamingo: $primary-500; //flamingo → Youwe primary-500
+$mist: #edf1f3; //mist
 $sapphire: #47a1ad; //$sapphire
 $jade: #6b9e78; //jade
 $turmeric: #cc850a; //turmeric
 $amethyst: #634f7d; //amethyst
 
 // Other colors
-$mist-s30: #71777d;
-$mist-s20: #d5d9db;
-$mist-s10: #e1e5e7;
+$mist-s30: $neutral-500; // #7f848f
+$mist-s20: $neutral-200; // #c2c6cc
+$mist-s10: $neutral-100; // #dadde1
 $mist-light: #f7fafc;
-$flamingo-s40: #bb043d; // Youwe primary-600
+$flamingo-s40: $primary-600; // Youwe primary-600
 
-$button-normal: #e40046; //button color → Youwe primary-500
-$button-disabled: #909090; //disabled state for links and buttons
+$button-normal: $primary-500; //button color → Youwe primary-500
+$button-disabled: $neutral-500; //disabled state for links and buttons
 
 $link-normal: $black; //links color
-$link-hover: #bb043d; //links hover → Youwe primary-600
+$link-hover: $primary-600; //links hover → Youwe primary-600
 $error-text: #d14234;
 
-$flamingo-dark: #910833; //flamingo-dark → Youwe red-700
+$flamingo-dark: $primary-700; //flamingo-dark → Youwe primary-700
 $sapphire-dark: #1f8290; //$sapphire-dark
 $jade-dark: #517b5c; //jade-dark
 $turmeric-dark: #a06908; //turmeric-dark
