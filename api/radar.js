@@ -11,17 +11,29 @@
  *   CONFLUENCE_TOKEN     a read-only Confluence Personal Access Token (PAT)
  */
 
-// Confluence table header (lowercased, trimmed) -> radar blip field
+// Confluence table header (lowercased, trimmed) -> radar blip field.
+// NOTE: the Confluence "Status" column (active/candidate) is intentionally NOT
+// mapped to the blip `status` field — the radar uses `status` to drive the blip
+// movement state (new / moved in / moved out / no change), which is derived from
+// the "Moved" column below.
 const COLUMN_MAP = {
   technology: 'name',
   quadrant: 'quadrant',
   ring: 'ring',
-  status: 'status',
   owner: 'owner',
   'review date': 'reviewDate',
   'confluence page url': 'confluenceUrl',
   notes: 'description',
   moved: 'moved',
+}
+
+// "Moved" column -> radar movement status.
+//   2 = new, 1 = moved in (towards the centre/Adopt), -1 = moved out, 0 = no change
+const MOVED_TO_STATUS = {
+  '2': 'new',
+  '1': 'moved in',
+  '-1': 'moved out',
+  '0': 'no change',
 }
 
 // Every blip must expose these keys as strings: the frontend's InputSanitizer
@@ -126,7 +138,9 @@ function parseTable(html, baseUrl) {
     // Skip empty rows (no technology name).
     if (!raw.name) continue
 
-    // "Moved" column (0/1/2) -> isNew flag. 2 == newly added this cycle.
+    // "Moved" column -> movement status (drives the New/Moved/No change rendering).
+    raw.status = MOVED_TO_STATUS[raw.moved] || ''
+    // Keep isNew in sync for the legend/fallback (2 == newly added this cycle).
     raw.isNew = raw.moved === '2' ? 'TRUE' : 'FALSE'
     delete raw.moved
 
