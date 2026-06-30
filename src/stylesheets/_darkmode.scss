@@ -131,6 +131,10 @@
         &:hover {
           color: #ff527a;
         }
+
+        img {
+          content: url('/images/youwe-logo-dark.png');
+        }
       }
     }
 
@@ -321,12 +325,7 @@
     }
 
     // ─── Radar legends (new/moved/no-change icons) ────────────────────────────
-
-    .radar-legends {
-      img {
-        filter: invert(1) brightness(0.85);
-      }
-    }
+    // SVG icons use brand colors and are readable on dark bg — no filter needed.
 
     // ─── Loader ───────────────────────────────────────────────────────────────
 
