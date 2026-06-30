@@ -11,8 +11,6 @@
  *   CONFLUENCE_TOKEN     a read-only Confluence Personal Access Token (PAT)
  */
 
-const { parse } = require('node-html-parser')
-
 // Confluence table header (lowercased, trimmed) -> radar blip field
 const COLUMN_MAP = {
   technology: 'name',
@@ -64,11 +62,15 @@ module.exports = async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
     res.status(200).json(blips)
   } catch (error) {
-    res.status(500).json({ error: `Failed to read Confluence page: ${(error && error.message) || error}` })
+    res.status(500).json({
+      error: `Failed to read Confluence page: ${(error && error.message) || error}`,
+      stack: error && error.stack,
+    })
   }
 }
 
 function parseTable(html, baseUrl) {
+  const { parse } = require('node-html-parser')
   const root = parse(html)
   const table = root.querySelector('table')
   if (!table) return []
