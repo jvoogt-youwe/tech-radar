@@ -119,6 +119,11 @@
         background-color: $mist-light;
       }
 
+      // Highlight the item opened from a search result — subtle neutral active tint.
+      &--searched {
+        background-color: $neutral-50;
+      }
+
       // Item content wrapper
       &-container {
         padding: 24px 16px;
@@ -136,7 +141,7 @@
         color: #1c2433;
         margin: 0;
         font-family: $baseFontFamily;
-        scroll-margin-top: $subnavHeight;
+        scroll-margin-top: calc(#{$subnavHeight} + 48px); // breathing room above the searched item
         line-height: 1.2;
         text-transform: none !important;
       }

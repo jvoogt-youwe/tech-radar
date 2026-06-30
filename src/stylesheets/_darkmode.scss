@@ -200,6 +200,12 @@
           background-color: #131b29;
         }
 
+        // Searched item: a subtle lift above the row — kept darker than the meta
+        // badges (#2a3343) so the tags stay readable.
+        &--searched {
+          background-color: #19222f;
+        }
+
         &-title {
           color: #f2f4f7;
         }
