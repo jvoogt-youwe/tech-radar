@@ -341,7 +341,18 @@ const Factory = function () {
       }
     })
 
-    let paramId = getDocumentOrSheetId() || process.env.SHEET_ID
+    const explicitSource = getDocumentOrSheetId()
+
+    // Default data source: the Confluence proxy (api/radar), which returns the
+    // Confluence source table as JSON. Only fall back to a Google Sheet / CSV /
+    // JSON file when one is explicitly provided via the URL query string.
+    if (!explicitSource && process.env.CONFLUENCE_PAGE_ID) {
+      sheet = JSONFile('/api/radar')
+      sheet.init().build()
+      return
+    }
+
+    let paramId = explicitSource || process.env.SHEET_ID
     if (paramId && !paramId.includes('://') && !paramId.endsWith('.csv') && !paramId.endsWith('.json')) {
       paramId = `https://docs.google.com/spreadsheets/d/${paramId}`
     }
