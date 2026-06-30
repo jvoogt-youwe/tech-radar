@@ -97,6 +97,11 @@
     @if $UIRefresh2022 {
       pointer-events: none;
       z-index: 10;
+
+      // Override D3 fill="#e16a7c" on the quadrant name arrow
+      .quadrant-name-cta {
+        fill: #1a1a1a;
+      }
     }
 
     .legend {

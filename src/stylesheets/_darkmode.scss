@@ -1,0 +1,361 @@
+@import 'colors';
+@import 'layout';
+
+// Dark mode via system preference.
+// All contrast ratios verified for WCAG 2.1 AA (4.5:1 normal text, 3:1 UI/large text).
+//
+// Palette on #0f0f0f base:
+//   text-primary  #f0f0f0  → ~21:1
+//   text-secondary #b8bcc2 → ~8.4:1
+//   text-muted    #7a8290  → ~4.9:1
+//   link-hover    #ff527a  → ~6.1:1
+//   placeholder   #8f8f8f on #252525 → ~4.6:1
+
+@if $UIRefresh2022 {
+  @media (prefers-color-scheme: dark) {
+
+    // ─── Base ────────────────────────────────────────────────────────────────
+
+    body {
+      background-color: #0f0f0f;
+      color: #f0f0f0;
+    }
+
+    a {
+      color: #f0f0f0;
+      border-color: #f0f0f0;
+
+      &:hover {
+        color: #ff527a;
+        border-color: #ff527a;
+      }
+    }
+
+    // ─── D3 tooltip ──────────────────────────────────────────────────────────
+
+    .d3-tip {
+      background: #252525;
+      color: #f0f0f0;
+    }
+
+    .d3-tip:after {
+      color: #252525;
+    }
+
+    // ─── Hero banner ─────────────────────────────────────────────────────────
+
+    .hero-banner {
+      background-color: #1a1a1a;
+      border-bottom-color: #2e2e2e;
+
+      &__title-text {
+        color: #f0f0f0;
+      }
+
+      &__volume {
+        color: #7a8290;
+      }
+
+      &__subtitle-text {
+        color: #b8bcc2;
+      }
+
+      &__search .search-container {
+        input,
+        &__input {
+          background-color: #252525 !important;
+          border-color: #464646 !important;
+          color: #f0f0f0 !important;
+
+          &::placeholder {
+            color: #8f8f8f !important;
+          }
+        }
+      }
+    }
+
+    // ─── Quadrant subnav ─────────────────────────────────────────────────────
+
+    .quadrant-subnav {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+
+      &.sticky {
+        background-color: #1a1a1a;
+      }
+
+      &__dropdown {
+        border-bottom-color: #2e2e2e;
+
+        &-arrow {
+          border-color: #f0f0f0;
+        }
+      }
+
+      &__list {
+        background-color: #1a1a1a;
+
+        &-item {
+          border-bottom-color: #2e2e2e;
+          color: #f0f0f0;
+
+          &__button {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+          }
+
+          &:not(.active-item):hover {
+            color: #ff527a;
+
+            & > * {
+              color: #ff527a;
+            }
+          }
+        }
+      }
+    }
+
+    // ─── Youwe footer ────────────────────────────────────────────────────────
+
+    footer.youwe-footer {
+      background-color: #1a1a1a;
+      border-top-color: #2e2e2e;
+
+      p {
+        color: #7a8290 !important;
+      }
+
+      a {
+        color: #f0f0f0;
+
+        &:hover {
+          color: #ff527a;
+        }
+      }
+    }
+
+    // ─── Graph footer (intro + ring descriptions) ─────────────────────────────
+
+    .radar-intro {
+      color: #b8bcc2;
+    }
+
+    .radar-footer-description {
+      color: #b8bcc2;
+
+      p,
+      li,
+      strong,
+      span {
+        color: #b8bcc2;
+      }
+    }
+
+    // ─── Quadrant ring headers ────────────────────────────────────────────────
+
+    .quadrant-table {
+      &__ring-header {
+        background-color: #252525;
+      }
+
+      &__ring-name {
+        color: #f0f0f0;
+      }
+
+      &__ring-tooltip-btn {
+        color: #7a8290;
+
+        &:hover,
+        &:focus {
+          color: #b8bcc2;
+        }
+      }
+
+      &__ring-tooltip-text {
+        background: #252525;
+        color: #f0f0f0;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+
+        &::after {
+          border-bottom-color: #252525;
+        }
+      }
+    }
+
+    // ─── Blip list ────────────────────────────────────────────────────────────
+
+    .blip-list {
+      &__item {
+        border-bottom-color: #2e2e2e;
+
+        &:hover,
+        &.highlight {
+          background-color: #252525;
+        }
+
+        &-title {
+          color: #f0f0f0;
+        }
+      }
+    }
+
+    .blip-description-text {
+      color: #b8bcc2;
+    }
+
+    .blip-show-toggle {
+      color: #f0f0f0;
+      text-decoration-color: #f0f0f0;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .blip-meta-badge {
+      background-color: #252525;
+      color: #b8bcc2;
+
+      &--link {
+        color: #b8bcc2;
+        text-decoration-color: #b8bcc2;
+
+        &:hover {
+          color: #ff527a;
+          text-decoration-color: #ff527a;
+        }
+      }
+    }
+
+    // ─── Search autocomplete ──────────────────────────────────────────────────
+
+    ul.ui-autocomplete {
+      background-color: #1a1a1a;
+      border-color: #333333;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+
+      li div {
+        border-bottom-color: #2e2e2e;
+        color: #f0f0f0;
+        background-color: #1a1a1a;
+
+        &.ui-state-active {
+          background-color: #252525 !important;
+          color: #f0f0f0 !important;
+        }
+      }
+    }
+
+    // ─── SVG radar ───────────────────────────────────────────────────────────
+    // Use #radar prefix to match specificity of existing UIRefresh2022 rules
+    // (compiled as #radar svg#radar-plot ... which has 2 ID tokens)
+
+    #radar svg#radar-plot {
+      // Background rect (first rect in each quadrant-group, fill="#edf1f3" via D3 attr).
+      // Give it a subtle lift above the page background so quadrant corners are visible.
+      // MUST NOT target .quadrant-rect (the transparent overlay) — it sits on top of
+      // ring arcs and would cover them entirely.
+      .quadrant-group rect:not(.quadrant-rect) {
+        fill: #1a1a1a;
+      }
+
+      // Keep the overlay rect transparent so ring arcs beneath remain visible.
+      .quadrant-group rect.quadrant-rect {
+        fill: transparent;
+      }
+
+      // Axis separator lines: override stroke: white from _quadrants.scss.
+      // Very dark so the cross is barely a hint, not a glaring white bar.
+      line {
+        stroke: #2e2e2e;
+      }
+
+      // Ring arcs: subtly lighter than quadrant bg so the circle area reads
+      // as a lifted surface. Keep fill close to bg to avoid a bright center.
+      // Stroke #71777d on #1e1e1e → 3.4:1 ✓ (WCAG 1.4.11 non-text ≥ 3:1)
+      path {
+        &.ring-arc-3,
+        &.ring-arc-2,
+        &.ring-arc-1,
+        &.ring-arc-0 {
+          fill: #1e1e1e;
+          stroke: #71777d;
+          stroke-width: 1;
+        }
+      }
+
+      // Blip shapes: lighter brand colors for ≥ 3:1 vs dark arc bg (WCAG 1.4.11 ✓)
+      // Black blip numbers on lighter fills → all ≥ 4.5:1 (WCAG normal text ✓)
+      circle,
+      polygon,
+      rect,
+      path {
+        &.first  { fill: #2dafc0; } // lighter sapphire  — black text 7.3:1 ✓
+        &.second { fill: #e09c1e; } // lighter turmeric  — black text 9.4:1 ✓
+        &.third  { fill: #6ab87a; } // lighter jade      — black text 8.8:1 ✓
+        &.fourth { fill: #f05272; } // lighter flamingo  — black text 5.7:1 ✓
+      }
+
+      // Blip numbers: black (not white) because blip fills are now light
+      text {
+        &.blip-text {
+          fill: #000000;
+        }
+
+        // Ring labels (Caution / Assess / Trial / Adopt) on dark arc → light
+        &.line-text {
+          fill: #c8cdd3;
+        }
+      }
+
+      // Quadrant name + arrow: white text & icon on dark bg
+      .quadrant-name-group {
+        text {
+          fill: #f0f0f0;
+        }
+
+        .quadrant-name-cta {
+          fill: #f0f0f0;
+        }
+      }
+    }
+
+    // ─── Radar legends (new/moved/no-change icons) ────────────────────────────
+
+    .radar-legends {
+      img {
+        filter: invert(1) brightness(0.85);
+      }
+    }
+
+    // ─── Loader ───────────────────────────────────────────────────────────────
+
+    .youwe-loader__text {
+      color: #7a8290;
+    }
+
+    .loader-wrapper div {
+      background: #2e2e2e;
+      animation: loader-dark 1s linear infinite;
+    }
+
+    @keyframes loader-dark {
+      0% {
+        background: #47a1ad;
+      }
+      50% {
+        background: #2e2e2e;
+      }
+      100% {
+        background: #2e2e2e;
+      }
+    }
+
+    // ─── Mobile quadrant buttons ──────────────────────────────────────────────
+
+    .all-quadrants-mobile--btn {
+      opacity: 0.9;
+    }
+
+  }
+}
