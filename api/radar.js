@@ -62,27 +62,48 @@ module.exports = async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
     res.status(200).json(blips)
   } catch (error) {
-    res.status(500).json({
-      error: `Failed to read Confluence page: ${(error && error.message) || error}`,
-      stack: error && error.stack,
-    })
+    res.status(500).json({ error: `Failed to read Confluence page: ${(error && error.message) || error}` })
   }
 }
 
-function parseTable(html, baseUrl) {
-  const { parse } = require('node-html-parser')
-  const root = parse(html)
-  const table = root.querySelector('table')
-  if (!table) return []
+// Minimal, dependency-free HTML parsing. The Confluence "view" output for a
+// table is regular enough that small regexes are more robust on Vercel's
+// runtime than an external parser (which pulled in an ESM-only transitive dep).
 
-  const rows = table.querySelectorAll('tr')
+function decodeEntities(str) {
+  return str
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(parseInt(dec, 10)))
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+}
+
+function stripTags(cellHtml) {
+  return decodeEntities(cellHtml.replace(/<[^>]*>/g, ' '))
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function getCells(rowHtml) {
+  return rowHtml.match(/<t[hd]\b[^>]*>[\s\S]*?<\/t[hd]>/gi) || []
+}
+
+function parseTable(html, baseUrl) {
+  const tableMatch = html.match(/<table\b[^>]*>[\s\S]*?<\/table>/i)
+  if (!tableMatch) return []
+
+  const rows = tableMatch[0].match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi) || []
   if (rows.length < 2) return []
 
-  const headers = rows[0].querySelectorAll('th, td').map((cell) => cell.text.trim().toLowerCase())
+  const headers = getCells(rows[0]).map((cell) => stripTags(cell).toLowerCase())
 
   const blips = []
   for (let i = 1; i < rows.length; i++) {
-    const cells = rows[i].querySelectorAll('td')
+    const cells = getCells(rows[i])
     if (cells.length === 0) continue
 
     const raw = {}
@@ -90,15 +111,15 @@ function parseTable(html, baseUrl) {
       const field = COLUMN_MAP[header]
       if (!field) return
       const cell = cells[index]
-      if (!cell) {
+      if (cell == null) {
         raw[field] = ''
         return
       }
       if (field === 'confluenceUrl') {
-        const link = cell.querySelector('a')
-        raw[field] = link ? link.getAttribute('href') || '' : cell.text.trim()
+        const link = cell.match(/href\s*=\s*["']([^"']+)["']/i)
+        raw[field] = link ? decodeEntities(link[1]) : stripTags(cell)
       } else {
-        raw[field] = cell.text.trim()
+        raw[field] = stripTags(cell)
       }
     })
 
