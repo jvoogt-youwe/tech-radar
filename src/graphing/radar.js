@@ -849,8 +849,12 @@ const Radar = function (size, radar) {
 
     if (featureToggles.UIRefresh2022) {
       const legendHeight = 40
-      radarElement.style('height', size + legendHeight + 'px')
+      const isMobile = window.innerWidth < 768
+      radarElement.style('height', isMobile ? 'auto' : size + legendHeight + 'px')
       svg.attr('id', 'radar-plot').attr('width', size).attr('height', size)
+      if (isMobile) {
+        svg.attr('viewBox', `0 0 ${size} ${size}`)
+      }
     } else {
       radarElement.style('height', size + 14 + 'px')
       svg

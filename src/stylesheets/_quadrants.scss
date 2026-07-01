@@ -492,15 +492,41 @@
 
     #first-quadrant-mobile {
       background-color: $sapphire;
+      background-position: bottom;
+      order: 1;
     }
     #second-quadrant-mobile {
       background-color: $turmeric;
+      background-position: top;
+      order: 3;
     }
     #third-quadrant-mobile {
       background-color: $jade;
+      background-position: bottom;
+      order: 2;
     }
     #fourth-quadrant-mobile {
-      background-color: $flamingo;
+      background-color: #f1627a;
+      background-position: top;
+      order: 4;
+    }
+  }
+
+  // Mobile quadrant view: radar on top, full width
+  @media screen and (max-width: 767px) {
+    #radar.mobile {
+      display: flex !important;
+      flex-direction: column;
+    }
+
+    #radar.mobile svg#radar-plot {
+      order: -1;
+      width: 100% !important;
+      height: auto !important;
+      left: 0 !important;
+      right: auto !important;
+      transform: none !important;
+      margin-bottom: 32px !important;
     }
   }
 }

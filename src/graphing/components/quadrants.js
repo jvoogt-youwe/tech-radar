@@ -94,6 +94,11 @@ function selectRadarQuadrant(order, startAngle, name) {
     .style('transform-origin', `0 0`)
     .attr('width', quadrantWidth)
     .attr('height', quadrantHeight + quadrantsGap)
+
+  if (window.innerWidth < uiConfig.mobileViewWidth) {
+    svg.attr('viewBox', `0 0 ${quadrantWidth} ${quadrantHeight + quadrantsGap}`)
+  }
+
   svg.classed('quadrant-view', true)
 
   d3.select('#radar').style('height', `${getScaledQuadrantHeightWithGap(scale) + 60}px`)

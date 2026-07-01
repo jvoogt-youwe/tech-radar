@@ -30,13 +30,13 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 16px;
+      padding: 12px;
       background-color: $neutral-50; // very subtle light band, barely above the white bg
-      border-radius: 2px;
+      border-radius: 4px;
     }
 
     &__ring-name {
-      font-size: 1.125rem; // 18px
+      font-size: 1rem; // 16px
       font-weight: 700;
       color: #1c2433;
       text-transform: none;
